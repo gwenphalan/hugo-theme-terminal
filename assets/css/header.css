@@ -37,6 +37,14 @@
   color: var(--background);
   font-weight: bold;
   padding: 5px 10px;
+  max-height: 34px;
+}
+
+.logo img {
+  max-height: 34px;
+  margin-right: 10px;
+  padding: 0%;
+  border: none;
 }
 
 @media print {

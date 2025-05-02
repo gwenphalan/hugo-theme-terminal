@@ -445,6 +445,8 @@ blockquote.twitter-tweet::before {
   max-width: 864px;
   min-height: 100vh;
   border-right: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
+  margin: 0 auto;
 }
 
 .container.full, .container.center {
