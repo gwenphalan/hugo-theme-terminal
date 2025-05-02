@@ -75,7 +75,6 @@ pagination.pagerSize = 5
   [languages.en]
     languageName = "English"
     title = "Unimatrix-01"
-
     [languages.en.params]
       subtitle = "Gwen Phalan's Portfolio"
       owner = "Gwen Phalan"
