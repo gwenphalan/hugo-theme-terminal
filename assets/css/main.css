@@ -457,7 +457,7 @@ blockquote.twitter-tweet::before {
   /* Layer order: Animated Scanlines (top), New Green Gradient (bottom) */
   background:
     linear-gradient(to bottom, rgba(18, 16, 16, 0) 60%, rgba(0, 0, 0, 0.25) 60%), /* Animated scanline layer (transparent) */
-    linear-gradient(to top, rgba(35, 58, 35, 0.8), rgba(0, 32, 0, 0.8)); /* Base hologram color (semi-transparent) */
+    linear-gradient(to top, rgba(1, 15, 0, 0.8), rgba(0, 32, 0, 0.8)); /* Base hologram color (semi-transparent) */
   background-size: 100% 2px, cover; /* Sizes for Animated Scanline, Base Hologram Gradient */
   animation: scanlines 55s linear infinite, textShadow 1.6s infinite;
   overflow: hidden; /* To contain the ::before and ::after pseudo-elements */
