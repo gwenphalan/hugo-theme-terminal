@@ -33,7 +33,17 @@
 
     console.log(rickroll);
   </script>
-  <script src="{{ "js/starry-night.js" | absURL }}"></script>
+  <!-- DEBUG: Attempting to load js/warp-speed.js -->
+  {{ $warpSpeedJSResource := resources.Get "js/warp-speed.js" }}
+  {{ if $warpSpeedJSResource }}
+    <!-- DEBUG: Found js/warp-speed.js resource: {{ $warpSpeedJSResource.RelPermalink }} -->
+    {{/* Try with js.Build first */}}
+    {{ $builtWarpSpeedJS := $warpSpeedJSResource | js.Build | fingerprint }}
+    <script src="{{ $builtWarpSpeedJS.RelPermalink }}" id="warp-speed-js-debug"></script>
+    <!-- DEBUG: JS script tag rendered using js.Build. -->
+  {{ else }}
+    <!-- DEBUG: js/warp-speed.js resource NOT FOUND using resources.Get -->
+  {{ end }}
 </head>
 <body>
   <div class="starfield-container"></div>

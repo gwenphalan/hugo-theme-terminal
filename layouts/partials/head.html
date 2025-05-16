@@ -13,11 +13,40 @@
 
 {{ template "_internal/google_analytics.html" . }}
 
-{{ $css := resources.Match "css/*.css" }}
+{{ $css := resources.Match "css/**.css" }}
+<!-- DEBUG: Checking CSS files matched by 'css/**.css' -->
 {{ range $css }}
+  <!-- DEBUG: Processing CSS: {{ .Name }} (Path: {{ .RelPermalink }}) -->
+  {{ if eq .Name "warp-speed.css" }}
+    <!-- DEBUG: Found warp-speed.css in range! -->
+  {{ end }}
   {{ $styles := . | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $styles.Permalink }}">
 {{ end }}
+<!-- DEBUG: End of CSS processing loop -->
+
+<!-- Explicit check for warp-speed.css -->
+<!-- DEBUG: Attempting to get css/warp-speed.css directly -->
+{{ $warpSpeedCSS := resources.Get "css/warp-speed.css" }}
+{{ if $warpSpeedCSS }}
+  <!-- DEBUG: Successfully got css/warp-speed.css. Path: {{ $warpSpeedCSS.RelPermalink }} -->
+  {{ $processedWarpSpeedCSS := $warpSpeedCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $processedWarpSpeedCSS.Permalink }}" id="explicit-warp-speed-css-check">
+{{ else }}
+  <!-- DEBUG: FAILED to get css/warp-speed.css directly. -->
+{{ end }}
+
+<!-- Second explicit check for warp-speed.css with full theme path (less likely but for testing) -->
+<!-- DEBUG: Attempting to get themes/terminal/assets/css/warp-speed.css directly -->
+{{ $warpSpeedCSSThemePath := resources.Get "themes/terminal/assets/css/warp-speed.css" }}
+{{ if $warpSpeedCSSThemePath }}
+  <!-- DEBUG: Successfully got themes/terminal/assets/css/warp-speed.css. Path: {{ $warpSpeedCSSThemePath.RelPermalink }} -->
+  {{ $processedWarpSpeedCSSThemePath := $warpSpeedCSSThemePath | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $processedWarpSpeedCSSThemePath.Permalink }}" id="explicit-warp-speed-css-theme-path-check">
+{{ else }}
+  <!-- DEBUG: FAILED to get themes/terminal/assets/css/warp-speed.css directly. -->
+{{ end }}
+
 <!-- Custom Terminal.css styles -->
 {{ if (fileExists "static/terminal.css") -}}
   <link rel="stylesheet" href="{{ "terminal.css" | absURL }}">
@@ -25,10 +54,6 @@
   <!-- Custom CSS to override theme properties (/static/style.css) -->
 {{ if (fileExists "static/style.css") -}}
   <link rel="stylesheet" href="{{ "style.css" | absURL }}">
-{{- end }}
-<!-- Starry Night CSS -->
-{{ if (fileExists "static/css/starry-night.css") -}}
-  <link rel="stylesheet" href="{{ "css/starry-night.css" | absURL }}">
 {{- end }}
 
 <!-- Icons -->
