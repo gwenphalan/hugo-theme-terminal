@@ -24,7 +24,7 @@ body {
   font-family: "Fira Code", Monaco, Consolas, "Ubuntu Mono", monospace;
   font-size: var(--font-size);
   line-height: var(--line-height);
-  background-color: var(--background);
+  background: linear-gradient(to bottom, #000000 0%, #222222 100%); /* Black top to dark grey bottom */
   color: var(--foreground);
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
@@ -446,6 +446,173 @@ blockquote.twitter-tweet::before {
   max-width: 864px;
   min-height: 100vh;
   margin: 0 auto;
+  box-shadow: 0 0 50px rgba(94, 255, 148, 0.6);
+  /* background-color: rgba(10, 22, 13, 0.8); Removed as new gradient below serves as base */
+  position: relative;
+  z-index: 0;
+
+  /* CRT Text Styling & Background Scanlines */
+  text-shadow: 0 0 10px #ffffff;
+  /* Animated scanlines on the container itself */
+  /* Layer order: Animated Scanlines (top), New Green Gradient (bottom) */
+  background:
+    linear-gradient(to bottom, rgba(18, 16, 16, 0) 60%, rgba(0, 0, 0, 0.25) 60%), /* Animated scanline layer (transparent) */
+    linear-gradient(to top, rgba(35, 58, 35, 0.8), rgba(0, 32, 0, 0.8)); /* Base hologram color (semi-transparent) */
+  background-size: 100% 2px, cover; /* Sizes for Animated Scanline, Base Hologram Gradient */
+  animation: scanlines 55s linear infinite, textShadow 1.6s infinite;
+  overflow: hidden; /* To contain the ::before and ::after pseudo-elements */
+}
+
+/* Screen-door effect from aleclownes.com */
+.container::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%; /* Horizontal and vertical lines */
+  pointer-events: none;
+}
+
+/* Flicker effect from aleclownes.com */
+.container::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 2; /* Ensure it's above the content but can be below ::before if needed */
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+/* Make children of .container slightly transparent and add bloom for hologram effect */
+.container > * {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 8px rgba(177, 255, 177, 0.568)); /* Green bloom */
+}
+
+/* Keyframes for animations */
+/* Flicker animation from aleclownes.com */
+@keyframes flicker {
+  0% {
+    opacity: 0.278959;
+  }
+  5% {
+    opacity: 0.34733;
+  }
+  10% {
+    opacity: 0.236045;
+  }
+  15% {
+    opacity: 0.906266;
+  }
+  20% {
+    opacity: 0.18128;
+  }
+  25% {
+    opacity: 0.838997;
+  }
+  30% {
+    opacity: 0.65586;
+  }
+  35% {
+    opacity: 0.67807;
+  }
+  40% {
+    opacity: 0.26559;
+  }
+  45% {
+    opacity: 0.846934;
+  }
+  50% {
+    opacity: 0.960196;
+  }
+  55% {
+    opacity: 0.085943;
+  }
+  60% {
+    opacity: 0.20313;
+  }
+  65% {
+    opacity: 0.719889;
+  }
+  70% {
+    opacity: 0.534554;
+  }
+  75% {
+    opacity: 0.372888;
+  }
+  80% {
+    opacity: 0.714282;
+  }
+  85% {
+    opacity: 0.704282;
+  }
+  90% {
+    opacity: 0.704282;
+  }
+  95% {
+    opacity: 0.361085;
+  }
+  100% {
+    opacity: 0.243877;
+  }
+}
+
+/* Text shadow animation from aleclownes.com */
+@keyframes textShadow {
+  0% {
+    text-shadow: 0.02956275843481219px 0 1px rgba(0,30,255,0.5), -0.02956275843481219px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  10% {
+    text-shadow: 0.2692815829994207px 0 1px rgba(0,30,255,0.5), -0.2692815829994207px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  20% {
+    text-shadow: 3.4794037899852017px 0 1px rgba(0,30,255,0.5), -3.4794037899852017px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  30% {
+    text-shadow: 0.7015590085143956px 0 1px rgba(0,30,255,0.5), -0.7015590085143956px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  40% {
+    text-shadow: 3.870905614848819px 0 1px rgba(0,30,255,0.5), -3.870905614848819px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  50% {
+    text-shadow: 0.08084290417898504px 0 1px rgba(0,30,255,0.5), -0.08084290417898504px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  60% {
+    text-shadow: 2.202193051050636px 0 1px rgba(0,30,255,0.5), -2.202193051050636px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  70% {
+    text-shadow: 0.48874025155497314px 0 1px rgba(0,30,255,0.5), -0.48874025155497314px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  80% {
+    text-shadow: 0.0833037308038857px 0 1px rgba(0,30,255,0.5), -0.0833037308038857px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  90% {
+    text-shadow: 3.443339761481782px 0 1px rgba(0,30,255,0.5), -3.443339761481782px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+  100% {
+    text-shadow: 2.6208764473832513px 0 1px rgba(0,30,255,0.5), -2.6208764473832513px 0 1px rgba(255,0,80,0.3), 0 0 3px #00ff00;
+  }
+}
+
+/* Scanlines animation from Dovid Edelkopf */
+@keyframes scanlines {
+  from {
+    background-position: 0 0, 0 0; /* AnimatedScanlineLayer, BaseGradient (static) */
+  }
+  to {
+    background-position: 0 -10px, 0 0; /* AnimatedScanlineLayer anim, BaseGradient (static) */
+  }
 }
 
 .container.full, .container.center {
@@ -518,3 +685,4 @@ iframe[src*="youtube.com"] {
     display: initial;
   }
 }
+
