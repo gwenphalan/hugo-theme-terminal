@@ -71,6 +71,16 @@ pagination.pagerSize = 5
   creator = ""
   site = ""
 
+[params.social]
+  enable = true  # You can use this to quickly show/hide the social links section
+  [[params.social.links]]
+    name = "GitHub"  # This text will appear on the button
+    url = "https://github.com/gwenphalan"
+  [[params.social.links]]
+    name = "Discord" # This text will appear on the button
+    url = "https://discord.gg/82WsGtJmBd"
+  # Add more social links as needed
+  
 [languages]
   [languages.en]
     languageName = "English"

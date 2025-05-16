@@ -5,6 +5,13 @@
   margin: 20px 1px;
 }
 
+.navigation-menu__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
 .navigation-menu__inner {
   display: flex;
   flex: 1;
@@ -145,4 +152,47 @@
   .menu--language-selector .menu__trigger {
     display: none;
   }
+}
+
+/* Styles for the right-aligned social links list */
+.navigation-menu__inner--right {
+  justify-content: flex-end;
+}
+
+/* Ensure social links items have similar spacing to main menu items */
+.social-links > li {
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+  white-space: nowrap;
+}
+
+.social-links > li:not(:last-of-type) {
+  margin-left: 20px;
+}
+
+.navigation-menu__inner--left > li > a,
+.social-links > li > a,
+.menu__trigger,
+.menu__dropdown > li a {
+  color: var(--accent); /* Default: Project Green text */
+  background-color: transparent;
+  text-decoration: none;
+  padding: 5px 8px; /* Add some padding for better click/hover area */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.navigation-menu__inner--left > li > a:hover,
+.social-links > li > a:hover,
+.menu__trigger:hover,
+.menu__dropdown > li a:hover {
+  color: var(--background); /* Hover: Black text (using theme's dark background color) */
+  background-color: var(--accent); /* Hover: Project Green background */
+}
+
+.navigation-menu__inner--left > li > a:active,
+.social-links > li > a:active,
+.menu__trigger:active,
+.menu__dropdown > li a:active {
+  color: var(--background); /* Active: Black text */
+  background-color: var(--foreground); /* Active: White background (using theme's foreground color) */
 }
