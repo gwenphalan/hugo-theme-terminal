@@ -445,6 +445,8 @@ blockquote.twitter-tweet::before {
   padding: 40px;
   max-width: 864px;
   min-height: 100vh;
+  border-left: 4px solid rgba(94, 255, 148, 0.6);
+  border-right: 4px solid  rgba(94, 255, 148, 0.6);
   margin: 0 auto;
   box-shadow: 0 0 50px rgba(94, 255, 148, 0.6);
   /* background-color: rgba(10, 22, 13, 0.8); Removed as new gradient below serves as base */
@@ -500,7 +502,59 @@ blockquote.twitter-tweet::before {
   filter: drop-shadow(0 0 8px rgba(177, 255, 177, 0.568)); /* Green bloom */
 }
 
-/* Keyframes for animations */
+/* Styles for the inline image container */
+.inline-image-container {
+  display: flex;
+  align-items: flex-start; /* Or 'center' for vertical alignment when side-by-side */
+  gap: 20px;
+  padding-top: 15px;
+  margin-bottom: -20px;
+  padding-bottom: 15px; /* Added bottom padding */
+}
+
+.inline-image-container > div:first-child { /* Text container */
+  flex: 1; /* Takes up remaining space */
+  text-align: left; /* Default text alignment */
+}
+
+.inline-image-container > div:last-child { /* Image wrapper container */
+  flex: 0 0 45%; /* flex-grow, flex-shrink, flex-basis - Updated to 45% */
+  max-width: 45%; /* Updated to 45% */
+}
+
+.inline-image-container img {
+  width: 100%; /* Image fills its 35% wrapper */
+  max-width: 100%; /* Ensures it doesn't overflow its wrapper */
+  height: auto;
+  display: block;
+}
+
+/* Responsive adjustments for the inline image container */
+@media (max-width: 768px) {
+  .inline-image-container {
+    flex-direction: column;
+    align-items: center; /* Center items when stacked */
+    gap: 15px;
+  }
+
+  .inline-image-container > div:first-child, /* Text container */
+  .inline-image-container > div:last-child { /* Image wrapper container */
+    flex-basis: auto; /* Reset flex-basis for stacking */
+    max-width: 90%;   /* Allow them to take more width when stacked */
+    width: 100%;
+  }
+
+  .inline-image-container > div:first-child { /* Text container when stacked */
+    text-align: center; /* Center text when stacked */
+    order: 1; /* Ensure text is first */
+  }
+
+  .inline-image-container > div:last-child { /* Image wrapper when stacked */
+    order: 2; /* Ensure image is second */
+    margin-top: 15px;
+  }
+}
+
 /* Flicker animation from aleclownes.com */
 @keyframes flicker {
   0% {
